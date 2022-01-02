@@ -19,20 +19,6 @@ public class MapModel implements IMapModel {
 		initilize();
 	}
 
-	@Override
-	public void initilize() {
-		dataMap.initialMap();
-		bricksWidth = 540 / dataMap.getCol();
-		bricksHeight = 150 / dataMap.getRow();
-
-	}
-
-	@Override
-	public void newMap() {
-		dataMap = new DataMap();
-		initilize();
-	}
-
 	public void draw(Graphics2D g) {
 		for (int i = 0; i < dataMap.getRow(); i++) {
 
@@ -56,6 +42,7 @@ public class MapModel implements IMapModel {
 		dataMap.updateMap(row, col, val);
 	}
 
+	// for observable
 	@Override
 	public void register(Observer observer) {
 		observers.add(observer);
@@ -67,7 +54,27 @@ public class MapModel implements IMapModel {
 	}
 
 	@Override
-	public void notify(int row, int col, int val) {
+	public void notifyView() {
+		observers.forEach(observer -> observer.update());
+	}
+
+	// for update data model
+	@Override
+	public void initilize() {
+		dataMap.initialMap();
+		bricksWidth = 540 / dataMap.getCol();
+		bricksHeight = 150 / dataMap.getRow();
+
+	}
+
+	@Override
+	public void newMap() {
+		dataMap = new DataMap();
+		initilize();
+	}
+
+	@Override
+	public void updateMap(int row, int col, int val) {
 		setBricksValue(row, col, val);
 		updateScore();
 	}

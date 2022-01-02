@@ -10,6 +10,8 @@ public interface IMapModel {
 
 	void newMap();
 
+	void updateMap(int row, int col, int val);
+
 	void draw(Graphics2D g);
 
 	int getScore();
@@ -30,5 +32,5 @@ public interface IMapModel {
 
 	void remove(Observer observer);
 
-	void notify(int row, int col, int val);
+	void notifyView();
 }

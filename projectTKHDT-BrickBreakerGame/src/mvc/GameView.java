@@ -28,9 +28,9 @@ public class GameView extends JPanel implements KeyListener, ActionListener, Obs
 	private Timer Timer;
 	private int delay = 8;
 
-	boolean play = false;
-	int playerX = 310; // yellow bar x position
-	Random rd = new Random();
+	protected boolean play = false;
+	protected int playerX = 310; // yellow bar x position
+	private Random rd = new Random();
 
 	private Ball ball;
 
@@ -100,24 +100,20 @@ public class GameView extends JPanel implements KeyListener, ActionListener, Obs
 			setBallXdir(-1);
 			g.setColor(Color.red);
 			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("    Winner: " + model.getScore(), 190, 300);
+			g.drawString("    Winner: " + controller.getScore(), 190, 300);
 
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("   Press Enter to Restart", 190, 340);
 		}
 
 		g.dispose();
-
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Timer.start();
 
-		if (play)
-			controller.executeGame();
-
-		repaint();
+		controller.executeGame();
 	}
 
 	@Override
@@ -155,8 +151,8 @@ public class GameView extends JPanel implements KeyListener, ActionListener, Obs
 	}
 
 	@Override
-	public void update(int row, int col, int val) {
-		controller.update(row, col, val);
+	public void update() {
+		repaint();
 	}
 
 	public void restart() {
